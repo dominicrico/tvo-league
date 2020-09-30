@@ -1,6 +1,6 @@
-#Wie funktioniert das nun?
+# :question: Wie funktioniert das nun :question:
 
-- Du lädst dir das Zip runter
+- Du lädst dir das Zip runter (oben auf dem grünen Code Button, ganz unten Download ZIP)
 - Packst die league.js und league.css auf den Server
 - Nimmst die html/php file in der das angezeigt werden soll
 - Fügst an die passende stelle das unten stehende html ein
@@ -19,3 +19,4 @@
   <div id="league" class="is-loading"></div>
 </div>
 ```
+# FERTIG :rocket: :rocket: :rocket: :rocket: :rocket:
