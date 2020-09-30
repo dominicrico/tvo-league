@@ -6,11 +6,13 @@
 - Fügst an die passende stelle das unten stehende html ein
 - Fügst die league.js und league.css in den \<head\> der datei
 
+Das in den \<head\>
 ```html
 <link rel="stylesheet" href="/league.css">
 <script src="/league.js" charset="utf-8"></script>
 ```
 
+Das an die stelle wo es hin soll
 ```html
 <div class="league-wrapper">
   <div class="select">
