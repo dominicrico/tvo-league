@@ -134,6 +134,16 @@
   font-size: 12px;
 }
 
+#league ul li .league-item .game-live .live-button {
+	font-size: 12px;
+  background-color: #7af563;
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #4e4e4e;
+	text-decoration: none;
+	cursor: pointer;
+}
+
 #league ul li .league-item .game-info {
   display: flex;
   flex: 1;
