@@ -25,7 +25,7 @@
 							<div class="game-teams">
 								<strong>${game.gHomeTeam} - ${game.gGuestTeam}</strong>
 							</div>
-							${!game.gToken ? (`<div class="game-live">
+							${game.gToken ? (`<div class="game-live">
 								<a class="live-button" href="https://spo.handball4all.de/service/ticker/index.html?token=${game.gToken}" target="_blank">Live seit ${game.gTime} Uhr</a>
 							</div>`) : (`<div class="game-date">
 								<span class="clock-icon"></span> <span>${game.gWDay} ${game.gDate} ${game.gDate}, ${game.gTime}</span>
