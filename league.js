@@ -8,10 +8,16 @@
   const handleClubChange = async e => {
     const clubToShow = clubs[parseInt(e.currentTarget.getAttribute('data-select'), 10)]
     if (selected !== clubToShow) {
+			document.querySelector('.is-active[data-select]').classList.remove('is-active')
       selected = clubToShow
-      document.querySelectorAll('#league > div').forEach(hide => hide.style = "display:none;")
+			e.currentTarget.classList.add('is-active')
+      document.querySelectorAll('[data-team]').forEach(hide => {
+				hide.style = "display:none;"
+				if (hide.parentElement.classList.contains('select')) hide.parentElement.style = "display:none;"
+			})
       await fetchLeagueData(clubToShow, og, e.target.value)
-      document.querySelector(`#league > div[data-team="${clubToShow}"]`).style = ""
+      document.querySelectorAll(`[data-team="${clubToShow}"]`).forEach(node => node.style = '')
+			document.querySelector(`.game-week-select[data-team="${clubToShow}"]`).parentElement.style = ''
     }
   }
 
@@ -20,8 +26,19 @@
 		Object.keys(leagueData[club].menu.dt.list).map(value => {
 			render += `<option value="${value}" ${(leagueData[club].menu.dt.selected === value) ? 'selected' : ''}>${leagueData[club].menu.dt.list[value]}</option>`
 		})
-		document.querySelector('#game-week-select').innerHTML = render
-		document.querySelector('#game-week-select').style = null
+
+		const select = document.createElement('div')
+		select.classList.add('select')
+		select.style = selected === club ? '' : 'display: none;'
+		select.innerHTML = `<select class="game-week-select" style="${selected === club ? '' : 'display: none;'}" data-team="${club}">`
+		document.querySelector('.league-wrapper').prepend(select)
+		document.querySelector(`.game-week-select[data-team="${club}"]`).innerHTML = render
+
+		document.querySelector(`.game-week-select[data-team="${club}"]`).addEventListener('change', async e => {
+	    const club = e.currentTarget.getAttribute('data-team')
+			await fetchLeagueData(club, og, e.target.value)
+		})
+
 	}
 
 	const renderGames = club => {
@@ -68,10 +85,10 @@
 			}
 		})
 
-		document.querySelector(`[data-team="${club}"]`).innerHTML = render
+		document.querySelector(`#league [data-team="${club}"]`).innerHTML = render
 	}
 
-	const fetchLeagueData = async (club, og, date) => {
+	const fetchLeagueData = async (club, og, date, withWeekSelect) => {
 		document.querySelector('#league').classList.add('is-loading')
 
 		leagueData[club] = await fetch(`https://spo.handball4all.de/service/if_g_json.php?c=${club}&cmd=pcu&og=${og}&do=${date}`)
@@ -79,22 +96,17 @@
 			.then(data => data[0])
 
 		renderGames(club)
-		renderWeeks(club)
+		if (withWeekSelect) renderWeeks(club)
 
 		document.querySelector('#league').classList.remove('is-loading')
 	}
 
   clubs.forEach(async (club) => {
     document.querySelector('#league').innerHTML = `<div data-team="${clubs[0]}"></div><div data-team="${clubs[1]}" style="display:none;"></div>`
-    await fetchLeagueData(club, og)
+    await fetchLeagueData(club, og, null, true)
   })
 
   document.querySelectorAll('.team-select .button-team').forEach(select =>
     select.addEventListener('click', handleClubChange)
   )
-
-	document.querySelector(`#game-week-select`).addEventListener('change', async e => {
-    const club = e.currentTarget.getAttribute('data-team')
-		await fetchLeagueData(club, og, e.target.value)
-	})
 })()
