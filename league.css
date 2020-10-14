@@ -43,6 +43,10 @@
   font-family: sans-serif;
 }
 
+#league.is-loading > * {
+  display: none;
+}
+
 #league .league-list {
   display: flex;
   flex-direction: column;
