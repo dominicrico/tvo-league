@@ -16,7 +16,7 @@ Das an die stelle wo es hin soll
 ```html
 <div class="league-wrapper">
   <div class="team-select">
-    <span data-select="0" class="button-team">TVO</span>
+    <span data-select="0" class="button-team is-active">TVO</span>
     <span data-select="1" class="button-team">HSG</span>
   </div>
   <div id="league" class="is-loading"></div>
