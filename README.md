@@ -19,9 +19,6 @@ Das an die stelle wo es hin soll
     <span data-select="0" class="button-team">TVO</span>
     <span data-select="1" class="button-team">HSG</span>
   </div>
-  <div class="select">
-    <select name="game-week-select" id="game-week-select" style="display: none;"></select>
-  </div>
   <div id="league" class="is-loading"></div>
 </div>
 ```
